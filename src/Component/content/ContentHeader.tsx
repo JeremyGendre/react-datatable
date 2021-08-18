@@ -13,15 +13,13 @@ export default function ContentHeader(){
     };
 
     return (
-        <>
-            {columnTitles ? (
-                <>
-                    {handleColumnsEntries(columnTitles).map((value) => value)}
-                </>
-            ) : (
-                <>{Object.keys(data[0]).map((property, index) => <ColumnTitle key={'title-'+index} title={property}/>)}</>
-            )}
-        </>
+        <thead>
+            <tr>
+                {columnTitles ? handleColumnsEntries(columnTitles).map((value) => value) : (
+                    <>{Object.keys(data[0]).map((property, index) => <ColumnTitle key={'title-'+index} title={property}/>)}</>
+                )}
+            </tr>
+        </thead>
     );
 }
 
@@ -31,8 +29,8 @@ type ColumnTitleType = {
 
 function ColumnTitle({title}: ColumnTitleType){
     return (
-        <div className="flex-1">
+        <th className="flex-1 font-bold">
             {title}
-        </div>
+        </th>
     );
 }

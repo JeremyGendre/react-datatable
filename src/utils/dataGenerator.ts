@@ -20,7 +20,7 @@ export function generateOneData(id: number): DataInterface{
     return {
         id: id,
         name: `Nametest${id}`,
-        email: `nametest${id}@gamil.com`,
+        email: `nametest${id}@gmail.com`,
         phone: `06 ${getRandomIntArbitrary(10,99)} ${getRandomIntArbitrary(10,99)} ${getRandomIntArbitrary(10,99)} ${getRandomIntArbitrary(10,99)}`,
         age: getRandomInt(80),
         createdAt: new Date(),
