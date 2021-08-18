@@ -6,8 +6,10 @@ import {generateData} from "./utils/dataGenerator";
 function App() {
     const [data, setData] = useState(generateData(30));
     return (
-        <div>
-            <Datatable data={data}/>
+        <div className="app-content-container">
+            <div className="app-content">
+                <Datatable data={data} columnTitles={{id: 'ID', name: 'Nom', age: 'Age', email: 'email'}}/>
+            </div>
         </div>
     );
 }

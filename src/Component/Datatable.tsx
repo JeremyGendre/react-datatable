@@ -1,11 +1,13 @@
 import React, {createContext, PropsWithChildren, useContext} from "react";
 import {DataInterface} from "../utils/dataGenerator";
-import DatatableHeader from "./DatatableHeader";
-import DatatableContent from "./DatatableContent";
-import DatatableFooter from "./DatatableFooter";
+import DatatableHeader from "./header/DatatableHeader";
+import DatatableContent from "./content/DatatableContent";
+import DatatableFooter from "./footer/DatatableFooter";
+import '../assets/Datatable.css';
 
 type DatatableType = {
-    data: Array<DataInterface>
+    data: Array<DataInterface>,
+    columnTitles?: object
 };
 
 const datatableContext = createContext<DatatableType | undefined>(undefined);
@@ -19,9 +21,9 @@ export const useDatatable = () => {
 };
 
 export function DatatableProvider(props:PropsWithChildren<DatatableType>){
-    const {data, children} = props;
+    const {children, ...otherProps} = props;
     return (
-        <datatableContext.Provider value={{data: data}}>
+        <datatableContext.Provider value={{...otherProps}}>
             {children}
         </datatableContext.Provider>
     );
@@ -29,10 +31,12 @@ export function DatatableProvider(props:PropsWithChildren<DatatableType>){
 
 export default function Datatable(props: DatatableType){
     return (
-        <DatatableProvider data={props.data}>
-            <DatatableHeader/>
-            <DatatableContent/>
-            <DatatableFooter/>
+        <DatatableProvider {...props}>
+            <div className="datatable-container">
+                <DatatableHeader/>
+                <DatatableContent/>
+                <DatatableFooter/>
+            </div>
         </DatatableProvider>
     )
 }
