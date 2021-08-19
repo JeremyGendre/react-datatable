@@ -46,10 +46,6 @@ export function DatatableProvider(props:PropsWithChildren<DatatableType>){
         setDisplayedData(filteredData.slice(offsetStart,(offsetStart + itemPerPage)));
     },[filteredData, actualPage, itemPerPage]);
 
-    useEffect(() => {
-
-    },[filteredData, itemPerPage, actualPage])
-
     return (
         <datatableContext.Provider value={{
             data,
