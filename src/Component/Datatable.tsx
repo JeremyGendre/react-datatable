@@ -13,9 +13,11 @@ interface DatatableType {
 interface DatatableContextType extends DatatableType {
     filteredData: Array<DataInterface>,
     displayedData: Array<DataInterface>,
-    setFilteredData: Dispatch<any>,
     itemPerPage: number,
+    actualPage: number,
+    setFilteredData: Dispatch<any>,
     setItemPerPage: Dispatch<any>,
+    setActualPage: Dispatch<any>,
 }
 
 const datatableContext = createContext<DatatableContextType | undefined>(undefined);
@@ -36,8 +38,17 @@ export function DatatableProvider(props:PropsWithChildren<DatatableType>){
     const [actualPage, setActualPage] = useState(1);
 
     useEffect(() => {
-        setDisplayedData(filteredData.slice(0,itemPerPage));
-    },[filteredData, itemPerPage]);
+        const maxPages = Math.ceil(filteredData.length / itemPerPage);
+        if( maxPages < actualPage){
+            setActualPage(maxPages);
+        }
+        const offsetStart = ((actualPage - 1) * itemPerPage);
+        setDisplayedData(filteredData.slice(offsetStart,(offsetStart + itemPerPage)));
+    },[filteredData, actualPage, itemPerPage]);
+
+    useEffect(() => {
+
+    },[filteredData, itemPerPage, actualPage])
 
     return (
         <datatableContext.Provider value={{
@@ -47,6 +58,8 @@ export function DatatableProvider(props:PropsWithChildren<DatatableType>){
             itemPerPage,
             setItemPerPage,
             displayedData,
+            actualPage,
+            setActualPage,
             ...otherProps
         }}>
             {children}

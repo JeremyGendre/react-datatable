@@ -19,10 +19,10 @@ export default function DatatableHeader(){
 
     return (
         <div className="d-flex justify-space-between">
-            <select onChange={handleSelectionChange}>
-                <option value={5} selected={itemPerPage === 5}>5</option>
-                <option value={10} selected={itemPerPage === 10}>10</option>
-                <option value={20} selected={itemPerPage === 20}>20</option>
+            <select onChange={handleSelectionChange} defaultValue={itemPerPage}>
+                <option value={5}>5</option>
+                <option value={10}>10</option>
+                <option value={20}>20</option>
             </select>
             <div>
                 <input type="text" onChange={handleSearch} placeholder="Search..."/>
