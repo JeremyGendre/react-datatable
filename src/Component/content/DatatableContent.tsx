@@ -1,16 +1,16 @@
-import React, {PropsWithChildren} from "react";
+import React from "react";
 import {useDatatable} from "../Datatable";
 import ContentHeader from "./ContentHeader";
 import {DataInterface} from "../../utils/dataGenerator";
 
 export default function DatatableContent(){
-    const {filteredData} = useDatatable();
-    if(!filteredData.length) return <>No data</>;
+    const {displayedData} = useDatatable();
+    if(!displayedData.length) return <>No data</>;
     return (
         <table className="w-full">
             <ContentHeader/>
             <tbody>
-                {filteredData.map(oneData => <TableRow key={oneData.id + oneData.name} data={oneData}/>)}
+                {displayedData.map(oneData => <TableRow key={oneData.id + oneData.name} data={oneData}/>)}
             </tbody>
         </table>
     );
