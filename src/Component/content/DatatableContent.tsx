@@ -4,13 +4,13 @@ import ContentHeader from "./ContentHeader";
 import {DataInterface} from "../../utils/dataGenerator";
 
 export default function DatatableContent(){
-    const {data} = useDatatable();
-    if(!data.length) return <>No data</>;
+    const {filteredData} = useDatatable();
+    if(!filteredData.length) return <>No data</>;
     return (
         <table className="w-full">
             <ContentHeader/>
             <tbody>
-                {data.map(oneData => <TableRow key={oneData.id + oneData.name} data={oneData}/>)}
+                {filteredData.map(oneData => <TableRow key={oneData.id + oneData.name} data={oneData}/>)}
             </tbody>
         </table>
     );

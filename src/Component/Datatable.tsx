@@ -1,16 +1,23 @@
-import React, {createContext, PropsWithChildren, useContext} from "react";
+import React, {createContext, Dispatch, PropsWithChildren, useContext, useEffect, useState} from "react";
 import {DataInterface} from "../utils/dataGenerator";
 import DatatableHeader from "./header/DatatableHeader";
 import DatatableContent from "./content/DatatableContent";
 import DatatableFooter from "./footer/DatatableFooter";
 import '../assets/Datatable.css';
 
-type DatatableType = {
+interface DatatableType {
     data: Array<DataInterface>,
     columnTitles?: object
-};
+}
 
-const datatableContext = createContext<DatatableType | undefined>(undefined);
+interface DatatableContextType extends DatatableType {
+    filteredData: Array<DataInterface>,
+    setFilteredData: Dispatch<any>,
+    filteredDataNumber: number,
+    setFilteredDataNumber: Dispatch<any>,
+}
+
+const datatableContext = createContext<DatatableContextType | undefined>(undefined);
 
 export const useDatatable = () => {
     const context = useContext(datatableContext);
@@ -21,9 +28,23 @@ export const useDatatable = () => {
 };
 
 export function DatatableProvider(props:PropsWithChildren<DatatableType>){
-    const {children, ...otherProps} = props;
+    const {children, data, ...otherProps} = props;
+    const [filteredData, setFilteredData] = useState(data);
+    const [filteredDataNumber, setFilteredDataNumber] = useState(10);
+
+    useEffect(() => {
+        setFilteredData(data.slice(0,filteredDataNumber));
+    },[data, filteredDataNumber]);
+
     return (
-        <datatableContext.Provider value={{...otherProps}}>
+        <datatableContext.Provider value={{
+            data: data,
+            filteredData: filteredData,
+            setFilteredData: setFilteredData,
+            filteredDataNumber: filteredDataNumber,
+            setFilteredDataNumber: setFilteredDataNumber,
+            ...otherProps
+        }}>
             {children}
         </datatableContext.Provider>
     );

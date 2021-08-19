@@ -26,3 +26,8 @@
 .h-full{height: 100%;}
 
 .text-center{text-align: center;}
+
+.justify-end{justify-content: end;}
+.justify-center{justify-content: center;}
+.justify-space-between{justify-content: space-between;}
+.justify-space-around{justify-content: space-around;}

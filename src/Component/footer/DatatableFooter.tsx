@@ -1,9 +1,11 @@
 import React from "react";
+import {useDatatable} from "../Datatable";
 
 export default function DatatableFooter(){
+    const {filteredData} = useDatatable();
     return (
         <div>
-            test footer
+            <i>{filteredData.length} résultats</i>
         </div>
     );
 }
